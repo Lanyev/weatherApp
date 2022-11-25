@@ -28,21 +28,21 @@
   border-radius: 30px;
   margin: 15px;
   padding: 1rem 1rem 1rem 1rem;
-  background-color: rgba(1, 1, 1, 0.5);
+  background-color: black;
   cursor: pointer;
 }
 
 .weatherCard img {
-  margin-top: -80px;
+  margin-top: -50px;
   width: 100%;
   height: 100%;
 }
 
-/* .weatherCard:hover {
-  background-color: #282c34;
-  border: 2px solid #282c34;
-  box-shadow: 0 0 10px #282c34;
-} */
+.weatherCard:hover {
+  background-color: black;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px #ffffff;
+}
 
 .weatherCard h1 {
   text-align: center;
@@ -62,6 +62,7 @@
   columns: 2;
   font-size: small;
   list-style-type: none;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -69,13 +70,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30vh;
-  height: 10vh;
+  width: 300px;
+  height: 80px;
   /* border: 1px solid yellow; */
   font-size: 5rem;
+  margin-top: 1rem;
+  margin-right: 0px;
+  right: 37px;
   position: absolute;
-  right: 16%;
-  top: 55%;
+  top: 54%;
 }
 
 .weatherCard .cardButton {
@@ -87,6 +90,13 @@
   background-color: #17669668;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+
+@media only screen and (max-width: 380px) {
+  .weatherCard .temp {
+    width: 300px;
+    height: 80px;
+  }
 }
 
 @keyframes gradient-animation {
