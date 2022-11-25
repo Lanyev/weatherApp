@@ -22,15 +22,17 @@ const WeatherCard = ({
           <li>{weather.weather[0].description}</li>
           <li>Wind Speed:{weather.wind.speed} m/s</li>
           <li>Clouds: {weather.clouds.all}</li>
-          <li>Pressure: {weather.main.pressure} hPa</li>
           <li>Humidity: {weather.main.humidity}%</li>
         </ul>
       </section>
-      <p className="temp">
-        {isCelsius
-          ? `${temperature.celsius}  C°`
-          : `${temperature.fahrenheit}  F°`}
-      </p>
+      <div className="temp">
+        <p>
+          {isCelsius
+            ? `${temperature.celsius}  C°`
+            : `${temperature.fahrenheit}  F°`}
+        </p>
+      </div>
+
       <button className="cardButton" onClick={changeUnitTemperature}>
         Change to {isCelsius ? "°F" : "°C"}
       </button>
