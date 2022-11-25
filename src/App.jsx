@@ -9,16 +9,14 @@ function App() {
   const [temperature, setTemperature] = useState();
   const [isCelsius, setIsCelsius] = useState(true);
 
-  const success = (pos) => {
-    const newCoords = {
-      lat: pos.coords.latitude,
-      lon: pos.coords.longitude,
-    };
-    setCoords(newCoords);
-  };
+  const changeUnitTemperature = () => setIsCelsius(!isCelsius);
 
-  const changeTemperature = () => {
-    setIsCelsius(!isCelsius);
+  const success = ({ coords: { latitude, longitude } }) => {
+    console.log({ latitude, longitude });
+    setCoords({
+      latitude,
+      longitude,
+    });
   };
 
   useEffect(() => {
@@ -26,32 +24,36 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const API_KEY = "de581b4ec4e4a9be896db9b0db9cd3b7";
-    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${coords?.lat}&lon=${coords?.lon}&appid=${API_KEY}`;
-    axios
-      .get(URL)
-      .then((res) => {
-        const tempKelvin = res.data.main.temp;
-        const tempCelsius = tempKelvin - 273.15;
-        const tempFahrenheit = (tempCelsius * 9) / 5 + 32;
-        const newTemperature = {
-          celsius: tempCelsius,
-          fahrenheit: tempFahrenheit,
-        };
-        setTemperature(newTemperature);
-        setWeather(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [coords]);
+    if (coords) {
+      const { latitude, longitude } = coords;
+      const API_KEY = "6babd9f397072cd3e87b5238726de264";
+      const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
 
-  console.log(temperature);
+      axios
+        .get(URL)
+        .then(({ data }) => {
+          const kelvin = data.main.temp;
+          const celsius = (data.main.temp - 273.15).toFixed();
+          const fahrenheit = (celsius * 9) / 5 + 32;
+          setTemperature({ celsius, fahrenheit });
+          setWeather(data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [coords]);
 
   return (
     <div className="App">
       {weather ? (
-        <WeatherCard weather={weather} temperature={temperature} />
+        <WeatherCard
+          weather={weather}
+          temperature={temperature}
+          isCelsius={isCelsius}
+          setIsCelsius={setIsCelsius}
+          changeUnitTemperature={changeUnitTemperature}
+        />
       ) : (
-        <p>Loading...</p>
+        <img src="src/assets/752.svg" alt="" />
       )}
     </div>
   );

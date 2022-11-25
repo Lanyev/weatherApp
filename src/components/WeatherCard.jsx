@@ -4,7 +4,7 @@ const WeatherCard = ({
   weather,
   temperature,
   isCelsius,
-  changeTemperature,
+  changeUnitTemperature,
 }) => {
   console.log(weather);
   return (
@@ -15,7 +15,7 @@ const WeatherCard = ({
         <div>
           <img
             src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
-            alt=""
+            alt="Clima"
           />
         </div>
         <ul>
@@ -26,13 +26,13 @@ const WeatherCard = ({
           <li>Humidity: {weather.main.humidity}%</li>
         </ul>
       </section>
-      <p>
+      <p className="temp">
         {isCelsius
-          ? `${temperature.celsius} °C`
-          : `${temperature.fahrenheits} °F`}
+          ? `${temperature.celsius}  C°`
+          : `${temperature.fahrenheit}  F°`}
       </p>
-      <button className="weatherCard-button" onClick={changeTemperature}>
-        Degrees °F/°C
+      <button className="cardButton" onClick={changeUnitTemperature}>
+        Change to {isCelsius ? "°F" : "°C"}
       </button>
     </article>
   );
